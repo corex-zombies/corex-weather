@@ -271,9 +271,11 @@ exports('SetWeather', function(weather)
     return false
 end)
 exports('SetTime', function(hour, minute)
-    if hour >= 0 and hour <= 23 then
+    if minute == nil then minute = 0 end
+    if type(hour) == 'number' and hour >= 0 and hour <= 23 and hour % 1 == 0
+        and type(minute) == 'number' and minute >= 0 and minute <= 59 and minute % 1 == 0 then
         CurrentHour = hour
-        CurrentMinute = minute or 0
+        CurrentMinute = minute
         SyncWeatherTime()
         return true
     end
